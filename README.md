@@ -273,3 +273,10 @@ client.shutdown();                                                           //6
 
 ------
 
+每个 redis command 都是通过一种或多种名称和redis 命令名称相同的方法实现的。
+
+Complex commands with multiple modifiers that change the result type include the CamelCased modifier as part of the command name, e.g. `zrangebyscore` and `zrangebyscoreWithScores`.
+
+
+
+Redis 连接是长链接和线程安全的，如果连接断开，将重新连接，直到调用 `close()`  为止。重新连接成功后，将（重新）发送尚未超时的未决命令。
