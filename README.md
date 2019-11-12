@@ -160,7 +160,7 @@ redisClient.shutdown();
 
 
 
-##  4. 连接Redis
+## 4. 连接Redis
 
 与Redis Standalone，Sentinel或Cluster的连接有详细的连接配置。连接的统一形式是通过 **RedisURI**，
 
@@ -190,7 +190,7 @@ new RedisURI("localhost", 6379, 60, TimeUnit.SECONDS);
 
 
 
-###  4.1. URI 语法
+### 4.1. URI 语法
 
 **Redis Standalone**
 
@@ -280,3 +280,20 @@ Complex commands with multiple modifiers that change the result type include the
 
 
 Redis 连接是长链接和线程安全的，如果连接断开，将重新连接，直到调用 `close()`  为止。重新连接成功后，将（重新）发送尚未超时的未决命令。
+
+
+
+所有的连接都是使用的是设置的 reids 客户端的 timeout，在非阻塞命令在timeout时间之内未返还结果将抛出**RedisException**
+
+
+
+超时默认设置为 60 秒，可以在redis 客户端中修改，当 timeout了 同步方法将抛出RedisCommandExecutionException，以防Redis响应错误，Redis响应错误时，异步连接的轻快下不会引发异常。
+
+
+
+####  4.2.1. RedisURI
+
+RedisURI 包含 host/port 并且可以携带 权限认证和数据的信息，连接成功后你会获得权限，然后选择数据库。
+
+断开连接后依然可以恢复连接。
+
